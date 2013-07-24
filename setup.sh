@@ -1,22 +1,29 @@
 #
 # This script setup chef solo environment from a fresh installed Ubuntu server
 #
+# reference:
+#   http://www.mechanicalrobotfish.com/blog/2013/01/01/configure-a-server-with-chef-solo-in-five-minutes/
+#
 # This has to be run as root on server
-# sudo su - 
+# sudo su -
+
+# Step 0:
+sudo su -
 
 # Step 1:
-sudo locale-gen en_US.UTF-8
-sudo /usr/sbin/update-locale LANG=en_US.UTF-8 
-sudo /usr/sbin/update-locale LC_ALL=en_US.UTF-8 
-sudo dpkg-reconfigure locales
+locale-gen en_US.UTF-8
+/usr/sbin/update-locale LANG=en_US.UTF-8 
+/usr/sbin/update-locale LC_ALL=en_US.UTF-8 
+dpkg-reconfigure locales
 
 # Step 2:
 # Reboot
+shutdown -r now
 
 # Step 3:
-sudo apt-get update
-sudo apt-get install curl
-sudo apt-get --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev
+apt-get update
+apt-get install curl
+apt-get --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev
 
 # Step 4:
 # sudo-ed
@@ -25,13 +32,13 @@ sudo apt-get --no-install-recommends install build-essential openssl libreadline
 # Step 5:
 # open another bash.
 
-sudo source ~/.rvm/scripts/rvm
-sudo rvm requirements
+source ~/.rvm/scripts/rvm
+rvm requirements
 
-sudo rvm install ree-1.8.7
+rvm install ree-1.8.7
 
-sudo rvm use ree-1.8.7 --default
+rvm use ree-1.8.7 --default
 
-sudo gem install --no-rdoc --no-ri chef
+gem install --no-rdoc --no-ri chef
 
 
