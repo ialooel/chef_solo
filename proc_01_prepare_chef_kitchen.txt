@@ -11,19 +11,20 @@
 sudo su -
 
 # Step 1:
-locale-gen en_US.UTF-8
+locale-gen en_US.UTF-udp
 /usr/sbin/update-locale LANG=en_US.UTF-8 
 /usr/sbin/update-locale LC_ALL=en_US.UTF-8 
 dpkg-reconfigure locales
 
 # Step 2:
 # Reboot
-shutdown -r now
+sudo shutdown -r now
 
 # Step 3:
-apt-get update
-apt-get install curl
-apt-get --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev
+# login as user
+sudo apt-get update
+sudo apt-get install curl
+sudo apt-get --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev
 
 # Step 4:
 \curl -L https://get.rvm.io | sudo bash -s stable
@@ -32,12 +33,16 @@ apt-get --no-install-recommends install build-essential openssl libreadline6 lib
 # open another bash. (or just reboot)
 
 source ~/.rvm/scripts/rvm
-rvm requirements
+sudo rvm requirements
 
-rvm install ree-1.8.7
+sudo rvm install ree-1.8.7
 
-rvm use ree-1.8.7 --default
+sudo rvm use ree-1.8.7 --default
 
-gem install --no-rdoc --no-ri chef
+sudo rvm install ruby
+
+sudo rvm use ruby
+
+sudo gem install --no-rdoc --no-ri chef
 
 
