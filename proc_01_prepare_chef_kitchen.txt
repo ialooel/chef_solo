@@ -4,17 +4,12 @@
 # reference:
 #   http://www.mechanicalrobotfish.com/blog/2013/01/01/configure-a-server-with-chef-solo-in-five-minutes/
 #
-# This has to be run as root on server
-# sudo su -
-
-# Step 0:
-sudo su -
 
 # Step 1:
-locale-gen en_US.UTF-udp
-/usr/sbin/update-locale LANG=en_US.UTF-8 
-/usr/sbin/update-locale LC_ALL=en_US.UTF-8 
-dpkg-reconfigure locales
+sudo locale-gen en_US.UTF-udp
+sudo /usr/sbin/update-locale LANG=en_US.UTF-8 
+sudo /usr/sbin/update-locale LC_ALL=en_US.UTF-8 
+sudo dpkg-reconfigure locales
 
 # Step 2:
 # Reboot
@@ -26,23 +21,43 @@ sudo apt-get update
 sudo apt-get install curl
 sudo apt-get --no-install-recommends install build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev libgdbm-dev ncurses-dev automake libtool bison subversion pkg-config libffi-dev
 
-# Step 4:
+# Step 4: - Install rvm.
+# Reference: 
+#    https://rvm.io/rvm/install#explained
+#    https://rvm.io/support/troubleshooting#sudo
 \curl -L https://get.rvm.io | sudo bash -s stable
+
+# Step 4a:
+# Add current user to the rvm group.
+sudo usermod -a -G rvm laileo
+
+# Step 4b
+# Logout and login again
+
+# Step 4c
+rvm get head 
 
 # Step 5:
 # open another bash. (or just reboot)
 
 source ~/.rvm/scripts/rvm
-sudo rvm requirements
+rvm requirements
 
-sudo rvm install ree-1.8.7
+rvm install ree-1.8.7
 
-sudo rvm use ree-1.8.7 --default
+rvm use ree-1.8.7 --default
 
-sudo rvm install ruby
+rvm install ruby
 
-sudo rvm use ruby
+rvm use ruby
 
 sudo gem install --no-rdoc --no-ri chef
+# rvmsudo gem install --no-rdoc --no-ri chef
+
+# cook
+# rvmsudo command which preserves the RVM environment and passes this on to sudo
+rvmsudo chef-solo -c solo/config.rb
+
+
 
 
