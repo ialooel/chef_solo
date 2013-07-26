@@ -1,6 +1,6 @@
 file "/tmp/helloworld.txt" do
-	owner "leo"
-	group "leo"
+	owner "root"
+	group "root"
 	mode 00544
 	action :create
 	content "Hello, Implementor!"
